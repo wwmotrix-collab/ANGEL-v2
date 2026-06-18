@@ -32,10 +32,19 @@ Arquivos novos:
 - `src/angel-ops/picoclaw-skins.js`
 - `src/angel-ops/bootstrap.js`
 
-Integração:
+Integração proposta:
 
-- `index.html` passa a carregar esses scripts após o script principal.
-- O dashboard ganha o painel **PicoClaw Ops** quando `dashExtra` ou `coordActions` estão disponíveis.
+- O `bootstrap.js` injeta um painel **PicoClaw Ops** no dashboard quando `dashExtra` ou `coordActions` estão disponíveis.
+- Para ativar no `index.html`, inserir os scripts abaixo antes de `</body>`, depois do script principal do app:
+
+```html
+<script src="src/angel-ops/protocols.js"></script>
+<script src="src/angel-ops/engines.js"></script>
+<script src="src/angel-ops/picoclaw-skins.js"></script>
+<script src="src/angel-ops/bootstrap.js"></script>
+```
+
+> Observação: o `index.html` atual é um arquivo único grande. Nesta PR draft, os módulos foram criados de forma não destrutiva; a ligação direta ao HTML deve ser aplicada em revisão para evitar sobrescrever fluxo existente.
 
 ## Protocolos criados
 
@@ -72,7 +81,7 @@ Ela **não** foi desenhada para:
 - inferir perfil sensível de eleitor;
 - substituir assessoria jurídica/contábil.
 
-## Como testar na tela
+## Como testar na tela depois da ativação
 
 No perfil coordenador, abra o dashboard e procure o card **PicoClaw Ops**.
 
@@ -95,9 +104,10 @@ O painel mostra:
 
 ## Próximos passos sugeridos
 
-1. Ligar a engine diretamente ao salvamento de eventos.
-2. Criar `event_invites` no Firebase para persistir convites.
-3. Adicionar confirmação de presença por militante.
-4. Criar relatório pós-evento estruturado.
-5. Versionar regras legais em `legal_rules` no banco.
-6. Fazer o PicoClaw ler eventos reais, pendências e relatórios acumulados.
+1. Inserir os quatro scripts no `index.html` antes de `</body>`.
+2. Ligar a engine diretamente ao salvamento de eventos.
+3. Criar `event_invites` no Firebase para persistir convites.
+4. Adicionar confirmação de presença por militante.
+5. Criar relatório pós-evento estruturado.
+6. Versionar regras legais em `legal_rules` no banco.
+7. Fazer o PicoClaw ler eventos reais, pendências e relatórios acumulados.
